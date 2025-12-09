@@ -1,26 +1,6 @@
-> ## ⚠️ 重要公告（2025年12月）
->
-> 由于 Fork 数量激增，GitHub 官方已联系我，当前运行方式对服务器造成压力。**本项目及所有 Fork 可能出现访问困难。**
->
-> - ✅ **推荐**：[Docker 部署](#6-docker-部署)（数据存本地，不受限制）
-> - ❌ **暂停**：Fork 部署、GitHub Actions、GitHub Pages
->
-> <details>
-> <summary>👉 点击查看详情</summary>
->
-> **问题说明：**
-> - 原设计通过 GitHub Actions 定时抓取新闻并保存到仓库，相当于把 GitHub 当"云端数据库"
-> - 大量 Fork 同时运行，服务器承受不住，GitHub 工程团队正在修复
->
-> **后续计划：**
-> - 探索新方案：保留 Actions 用于抓取和推送，但不再将数据保存到仓库，改用外部存储
->
-> 感谢理解！问题反馈：[Issues](https://github.com/sansan0/TrendRadar/issues) 或公众号
->
-> </details>
-
-
 <div align="center" id="trendradar">
+
+> **📢 公告：** 经与 GitHub 官方沟通，完成合规调整后将恢复"一键 Fork 部署"，请关注 **v4.0.0** 版本的更新
 
 <a href="https://github.com/sansan0/TrendRadar" title="TrendRadar">
   <img src="/_image/banner.webp" alt="TrendRadar Banner" width="80%">
@@ -65,31 +45,65 @@
 
 > 本项目以轻量，易部署为目标
 
-<details>
-<summary>⚠️ 点击展开：<strong>Fork 须知：文档更新、资源限制与部署建议</strong></summary>
 <br>
 
-**📄 文档版本说明：**
+<details>
+<summary>🚨 <strong>【必读】重要公告：本项目的正确部署姿势</strong></summary>
 
-如果你是通过 **Fork** 使用本项目，你看到的可能是旧版文档。因为 Fork 时会复制当时的文档版本，但原项目可能已更新。
+<br>
 
-**👉 [点击查看最新官方文档](https://github.com/sansan0/TrendRadar?tab=readme-ov-file)**
+> **⚠️ 2025年12月紧急通知**
+>
+> 由于 Fork 数量激增导致 GitHub 服务器压力过大，**GitHub Actions 及 GitHub Pages 部署目前已受限**。为确保顺利部署，请务必阅读以下说明。
 
-**如何判断？** 看页面顶部的仓库地址：
-- `github.com/你的用户名/TrendRadar` ← 你 fork 的版本
-- `github.com/sansan0/TrendRadar` ← 最新官方版本
+### 1. ✅ 唯一推荐部署方式：Docker
+
+**这是目前最稳定、不受 GitHub 限制的方案。** 数据存储在本地，不会因为 GitHub 策略调整而失效。
+
+* 👉 [跳转到 Docker 部署教程](#6-docker-部署)
 
 ---
 
-**🛡️ 资源限制与安全提示：**
+### 2. 如果你本打算 Fork 本项目...
 
-GitHub 为每个账号提供的 Actions 资源是有限额的。为了避免被官方判定为滥用而面临封号风险，请注意：
+为了减少对 GitHub 服务器的压力，**请千万不要直接点击 "Fork" 按钮！**
 
-- **监控平台数量**：建议控制在 **10 个左右**，过多平台会消耗更多资源
-- **执行频率**：建议最短间隔为 **30 分钟**，过于频繁无实际意义
-- **合理使用**：GitHub Actions 适合轻量级定时任务，而非高频爬虫
+请务必使用 **"Use this template"** 功能来替代 Fork：
 
-💡 **想要更自由地使用？** 推荐 [🐳 Docker 部署](#6-docker-部署)，在自己的服务器上运行。
+1.  **点击**原仓库页面右上角的绿色的 **[Use this template]** 按钮。
+2.  **选择** "Create a new repository"。
+
+**为什么要这样做？**
+* **❌ Fork**：复制完整历史记录，大量 Fork 同时运行会触发 GitHub 风控。
+* **✅ Use this template**：创建的是一个全新的独立仓库，没有历史包袱，对服务器更友好。
+
+---
+
+### 3. 关于新版数据存储的说明
+
+新版将使用 **Cloudflare R2** 存储新闻数据，以保证持久化。
+
+**⚠️ 配置前置条件：**
+
+根据 Cloudflare 平台规则，开通 R2 需绑定支付方式。
+
+- **目的：** 仅作身份验证（Verify Only），不产生扣费。
+- **支付：** 支持信用卡或国区 PayPal。
+- **用量：** R2 的免费额度足以覆盖本项目日常运行，无需付费。
+
+---
+
+### 4. 📅 后续计划与文档阅读说明
+
+> **后续计划：**
+> - 探索新方案：保留 Actions 用于抓取和推送，但不再将数据保存到仓库，改用外部存储。
+
+**⚠️ 阅读注意：**
+鉴于上述计划意味着 **Fork 部署模式未来可能会以新形式回归**，且当前全面修改文档工作量巨大，我们暂时保留了旧版描述。
+
+**在当前阶段，若后续教程中仍出现 "Fork" 相关表述，请一律忽略或将其理解为 "Use this template"**。
+
+👉 **[点击此处查看 TrendRadar 最新官方文档](https://github.com/sansan0/TrendRadar?tab=readme-ov-file)**
 
 </details>
 
@@ -553,7 +567,7 @@ GitHub 一键 Fork 即可使用，无需编程基础。
 
 - **新增个人微信推送支持**：企业微信应用可推送到个人微信，无需安装企业微信 APP
 - 支持两种消息格式：`markdown`（企业微信群机器人）和 `text`（个人微信应用）
-- 新增 `WEWORK_MSG_TYPE` 环境变量配置，支持 GitHub Actions、Docker、docker-compose 等多种部署方式
+- 新增 `WEWORK_MSG_TYPE` 环境变量配置，支持 GitHub Actions、Docker、docker compose 等多种部署方式
 - `text` 模式自动清除 Markdown 语法，提供纯文本推送效果
 - 详见快速开始中的「个人微信推送」配置说明
 
@@ -2032,7 +2046,7 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
 
 ---
 
-#### 方式一：使用 docker-compose（推荐）
+#### 方式一：使用 docker compose（推荐）
 
 1. **创建项目目录和配置**:
 
@@ -2053,9 +2067,9 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
    wget https://raw.githubusercontent.com/sansan0/TrendRadar/master/config/config.yaml -P config/
    wget https://raw.githubusercontent.com/sansan0/TrendRadar/master/config/frequency_words.txt -P config/
 
-   # 下载 docker-compose 配置
+   # 下载 docker compose 配置
    wget https://raw.githubusercontent.com/sansan0/TrendRadar/master/docker/.env  -P docker/
-   wget https://raw.githubusercontent.com/sansan0/TrendRadar/master/docker/docker-compose.yml  -P docker/
+   wget https://raw.githubusercontent.com/sansan0/TrendRadar/master/docker/docker compose.yml  -P docker/
    ```
 
    > 💡 **说明**：Docker 部署需要的关键目录结构如下：
@@ -2066,7 +2080,7 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
 │   └── frequency_words.txt
 └── docker/
     ├── .env
-    └── docker-compose.yml
+    └── docker compose.yml
 ```
 
 2. **配置文件说明**:
@@ -2096,7 +2110,7 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
    **使用方法**：
    - 修改 `.env` 文件，取消注释并填写需要的配置
    - 或在 NAS/群晖 Docker 管理界面的"环境变量"中直接添加
-   - 重启容器后生效：`docker-compose up -d`
+   - 重启容器后生效：`docker compose up -d`
 
 
 3. **启动服务**:
@@ -2104,24 +2118,24 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
    **选项 A：启动所有服务（推送 + AI 分析）**
    ```bash
    # 拉取最新镜像
-   docker-compose pull
+   docker compose pull
 
    # 启动所有服务（trend-radar + trend-radar-mcp）
-   docker-compose up -d
+   docker compose up -d
    ```
 
    **选项 B：仅启动新闻推送服务**
    ```bash
    # 只启动 trend-radar（定时抓取和推送）
-   docker-compose pull trend-radar
-   docker-compose up -d trend-radar
+   docker compose pull trend-radar
+   docker compose up -d trend-radar
    ```
 
    **选项 C：仅启动 MCP AI 分析服务**
    ```bash
    # 只启动 trend-radar-mcp（提供 AI 分析接口）
-   docker-compose pull trend-radar-mcp
-   docker-compose up -d trend-radar-mcp
+   docker compose pull trend-radar-mcp
+   docker compose up -d trend-radar-mcp
    ```
 
    > 💡 **提示**：
@@ -2141,8 +2155,8 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
    docker ps | grep trend-radar
 
    # 停止特定服务
-   docker-compose stop trend-radar      # 停止推送服务
-   docker-compose stop trend-radar-mcp  # 停止 MCP 服务
+   docker compose stop trend-radar      # 停止推送服务
+   docker compose stop trend-radar-mcp  # 停止 MCP 服务
    ```
 
 #### 方式二：本地构建（开发者选项）
@@ -2158,25 +2172,25 @@ cd TrendRadar
 vim config/config.yaml
 vim config/frequency_words.txt
 
-# 使用构建版本的 docker-compose
+# 使用构建版本的 docker compose
 cd docker
-cp docker-compose-build.yml docker-compose.yml
+cp docker compose-build.yml docker compose.yml
 ```
 
 **构建并启动服务**：
 
 ```bash
 # 选项 A：构建并启动所有服务
-docker-compose build
-docker-compose up -d
+docker compose build
+docker compose up -d
 
 # 选项 B：仅构建并启动新闻推送服务
-docker-compose build trend-radar
-docker-compose up -d trend-radar
+docker compose build trend-radar
+docker compose up -d trend-radar
 
 # 选项 C：仅构建并启动 MCP AI 分析服务
-docker-compose build trend-radar-mcp
-docker-compose up -d trend-radar-mcp
+docker compose build trend-radar-mcp
+docker compose up -d trend-radar-mcp
 ```
 
 > 💡 **架构参数说明**：
@@ -2184,7 +2198,7 @@ docker-compose up -d trend-radar-mcp
 > - 如需构建 `arm64` 架构（Apple Silicon、树莓派等），设置环境变量：
 >   ```bash
 >   export DOCKER_ARCH=arm64
->   docker-compose build
+>   docker compose build
 >   ```
 
 #### 镜像更新
@@ -2193,12 +2207,12 @@ docker-compose up -d trend-radar-mcp
 # 方式一：手动更新（爬虫 + MCP 镜像）
 docker pull wantcat/trendradar:latest
 docker pull wantcat/trendradar-mcp:latest
-docker-compose down
-docker-compose up -d
+docker compose down
+docker compose up -d
 
-# 方式二：使用 docker-compose 更新
-docker-compose pull
-docker-compose up -d
+# 方式二：使用 docker compose 更新
+docker compose pull
+docker compose up -d
 ```
 
 **可用镜像**：
@@ -2335,14 +2349,14 @@ flowchart TB
 
 **快速启动**：
 
-使用 docker-compose 同时启动新闻推送和 MCP 服务：
+使用 docker compose 同时启动新闻推送和 MCP 服务：
 
 ```bash
-# 下载最新的 docker-compose.yml（已包含 MCP 服务配置）
-wget https://raw.githubusercontent.com/sansan0/TrendRadar/master/docker/docker-compose.yml
+# 下载最新的 docker compose.yml（已包含 MCP 服务配置）
+wget https://raw.githubusercontent.com/sansan0/TrendRadar/master/docker/docker compose.yml
 
 # 启动所有服务
-docker-compose up -d
+docker compose up -d
 
 # 查看运行状态
 docker ps | grep trend-radar
